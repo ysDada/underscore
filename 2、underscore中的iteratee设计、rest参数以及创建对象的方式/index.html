@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<script>
+    // iteratee设计
+    // 专门为对象服务的map方法
+    // 迭代函数改变对象的 values 值
+    // 返回对象副本
+    // var obj = { name: 'ys' }
+    // console.log(_.map([1, 2, 3], function (value, index, object) {
+    //     return value * 3
+    // }, obj))
+
+
+
+
+
+    //rest参数
+    // ES6引入rest参数（形式为。。。变量名）用来获取函数的多余参数
+    // function test1(count1, count2, ...rest) {
+    //     console.log(rest)
+    // }
+    // test1(1,2,3,4)   //[2,3,4]
+
+    //underscore实现rest参数的方式
+    // function test2(count1, count2, rest){
+    //     console.log(rest)
+    // }
+    //包装器
+    // var restTest = _.restArguments(test2)
+    // restTest(1, 2, 3, 4)
+
+
+    //创建对象
+    function Person(){
+    }
+    function Person2(){
+    }
+    // var o = Object.create(p, {
+    //     foo: { 
+    //         writable:true,
+    //         configurable:true,
+    //         value: "hello" 
+    //     }
+    // })
+    // console.log(o.foo)
+    // console.log(o instanceof Person)
+
+    var p = _.baseCreat(Person.prototype)
+    console.log(p instanceof Person)
+
+    var p2 = _.baseCreat(Person2.prototype)
+    console.log(p2 instanceof Person2)
+    console.log(p instanceof Person)
+
+</script>
+<body>
+</body>
+</html>

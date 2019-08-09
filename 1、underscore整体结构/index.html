@@ -16,18 +16,12 @@
     
     // console.log(_([1,2,3,4,5,6,4,5,6]).unique())
 
-    var func = function(){
-        console.log('111')
-    }
-    var ff = new func()
-
-    func.prototype.ss = function(){
-        console.log(222)
-    }
-
-    ff.ss()
-    console.log(func.__proto__ === Function.prototype)
+    // console.log(_([1,2,3,4,5,6,4,5,6]).chain()) //返回的是undersc实例对象
     
+    console.log(_([1,2,3,4,5,6,4,5,6]).chain().unique().map(function(item){
+        return item + 1
+    }).value())
+
 </script>
 <body>
 </body>
