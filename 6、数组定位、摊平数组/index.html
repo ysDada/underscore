@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<script>
+    //深度展开
+    console.log(_.flatten([1, [2, 3], [4, 5]]))
+    //浅度展开
+    console.log(_.flatten([1, [2, 3], [4, [[4]]]], true))
+
+    let arr = [1, 2, 3, 4, 5, 6]
+    console.log(_.initial(arr, 4), arr)
+    console.log(_.rest(arr, 2), arr)
+</script>
+<body>
+</body>
+</html>
