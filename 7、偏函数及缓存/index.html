@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<script>
+    // //局部应用一个函数填充在任意个数的参数，不改变其动态this的值
+    // var add = function (a, b) {
+    //     return a + b
+    // }
+    // var partialAdd = _.partial(add, 5)
+    // console.log(partialAdd(10)) //15
+    // console.log(partialAdd(2))  //7
+
+    // //partial跟原生bind方法类似，bind()方法创建一个新的函数，在bind()被调用时，这个新函数的this被bind的第一个参数指定，其余的参数将作为新函数的参数供调用时使用
+    // var add = function (a, b) {
+    //     console.log(a)
+    //     return a + b
+    // }
+    // var BindAdd = add.bind(this, 5)
+    // console.log(BindAdd(5, 6))
+    
+
+    //用于改变key的值
+    var hasher = function() {
+        var n = arguments[0]
+        return n + 'ys'
+    }
+
+    //斐波那契数：这个数列从第三项开始，每一项都等于前两项之和
+    //1, 1, 2, 3, 5, 8, 13 ...
+    var fibonacci = _.memoize(function(n){
+        return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+    }, hasher)
+
+    // fibonacci(10)
+    console.log(fibonacci(10))
+    console.log(fibonacci.cache)
+</script>
+<body>
+</body>
+</html>

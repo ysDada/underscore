@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<script>
+    //数组去重
+    console.log(_.unique([1, 2, 3, 4, 4, 5, 6], true))  //[1, 2, 3, 4, 5, 6]
+
+    //去掉数组中所有的假值
+    console.log(_.compact([1, 2, false, '', 4, 0, 6]))   //[1, 2, 4, 6]
+
+    //返回某一范围内的数组成的数组
+    console.log(_.range(5))                     //[1, 2, 3, 4]
+    console.log(_.range(1, 11))                 //[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    console.log(_.range(1, 10, 2))              //[1, 3, 5, 7, 9]
+
+</script>
+<body>
+</body>
+</html>
