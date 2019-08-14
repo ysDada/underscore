@@ -38,8 +38,16 @@
     }, hasher)
 
     // fibonacci(10)
-    console.log(fibonacci(10))
-    console.log(fibonacci.cache)
+    console.log(fibonacci(5))       //5
+    console.log(fibonacci.cache)    //{1ys: 1, 0ys: 0, 2ys: 1, 3ys: 2, 4ys: 3, 5ys: 5}
+
+    // var myMemoize = _.memoize(function(n){
+    //     return n
+    // })
+    // console.log(aaa(10))
+    // console.log(aaa(20))
+    // console.log(aaa.cache)  //{10: 10, 20: 20}
+
 </script>
 <body>
 </body>
