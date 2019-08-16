@@ -53,7 +53,7 @@
 
     var ret = _.composePlus(fn1, fn2, fn3)
     //等价于
-    var ret =function() {
+    var ret = function() {
         return (function(){
             return fn1(fn2.apply(undefined, arguments))
         })(fn3.apply(undefined, arguments))
