@@ -507,18 +507,6 @@
                 return total(item.apply(undefined, arguments))
             }
         })
-
-        fn1(function() {
-            return 
-        })
-
-        total
-
-        ret =function (arguments) {
-            (function(){
-                return fn1(fn2.apply(undefined, arguments))
-            })(fn3.apply(undefined, arguments))
-        }
     }
 
     _.mixin(_)
