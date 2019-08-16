@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<style>
+.content{
+    height: 3000px;
+    width: 100%;
+}
+</style>
+<body>
+    <div class="content">
+    </div>
+</body>
+<script>
+    //has以及keys方法
+    // var obj = {
+    //     a: 1,
+    //     b: 2,
+    //     c: 3,
+    //     toString: 'hhhh'
+    // };
+    // obj.__proto__.d = 4
+    // for(let i in obj){  //for in 循环也会把自身对象 + 原型对象上的属性循环出来
+    //     console.log(i)  //[a, b, c, d]
+    // }
+    // console.log(obj.d)    //true
+
+    // console.log(_.keys(obj))    //[a, b, c]
+
+
+    //invert方法
+    // var obj = {
+    //     q: 0,
+    //     a: 1,
+    //     b: 2,
+    //     c: 3,
+    //     toString: 'hhhh'
+    // };
+    // console.log(_.invert(obj))
+
+    //createAssigner
+    //_.extend      扩展对象，自身对象可枚举的属性 + 原型链上可枚举的属性
+    //_.extendOwn   扩展对象，自身对象可枚举的属性
+    var ret = {
+        q: 4
+    }
+    var obj = {
+        a: 1,
+        b: 2,
+        c: ret
+    };
+    obj.__proto__.d = 4
+
+    console.log(_.extend({}, obj))      //{a: 1, b: 2, c: {…}}
+    console.log(_.extendOwn({}, obj))   //{a: 1, b: 2, c: {…}, d: 4}
+
+    var objCopy = _.extend({}, obj)
+    var objCopy2 = _.extendPlus({}, obj)
+    console.log(objCopy.c === ret)      //true
+    console.log(objCopy2.c === ret)     //false
+
+</script>
+<body>
+</body>
+</html>

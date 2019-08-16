@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<style>
+.content{
+    height: 3000px;
+    width: 100%;
+}
+</style>
+<body>
+    <div class="content">
+    </div>
+</body>
+<script>
+    //都是解决请求和响应速度不匹配问题的两个方案。二者的差异在于选择不同的策略
+    //throttle：节流
+    //关注点是连续的执行间隔时间
+
+    //无节流
+    //滚动的太快的话，函数执行过快
+    // window.onscroll = function(){
+    //     console.log(123)
+    // }
+
+    //有节流   控制函数的调用评率，1.5秒调用一次
+    //_.throttle(func, wait, options)
+    //options配置 { leading: false, trailing: false }
+    //options不设置的话，会执行两次，立即执行 + wait毫秒后执行
+    //leading: false   阻止立即执行，等待wait毫秒后执行
+    //trailing: false  立即执行一次
+    // var throttle = _.throttle(function(){
+    //     console.log('hhhhhh')
+    // }, 1500)
+    // window.onscroll = throttle
+    
+    
+
+    //debounce：防抖
+    //关注点是空闲的间隔时间
+    //_.debounce(func, wait, immediate)
+    //immediate: true || false; 为true的话，会在一开始就调用，false实在wait毫秒后调用
+    // var debounce = _.debounce(function() {
+    //     console.log('hhhhh')
+    // }, 1500, true)
+
+    // window.onscroll = debounce
+    
+</script>
+<body>
+
+</body>
+</html>
