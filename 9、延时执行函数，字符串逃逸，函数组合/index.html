@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<body>
+    <div>
+        <input type="text" class="text">
+        <button class="btn">点我</button>
+        <div class="span"></div>
+    </div>
+</body>
+<script>
+    //延迟函数
+    // _.delay(function(name, age){
+    //     console.log(name, age)
+    //     console.log(this)
+    // }, 1500, 'ys', 26)
+
+    //字符串逃逸，字符串变成了dom元素
+    //XSS攻击，字符串过滤筛选 
+    //当在input中输入：<a href="javascript:alert(1223)">链接
+    //会在页面生成一段连接，非常不安全，_.escape方法就是将字符串过滤转换成安全的字符串
+    var btnElem = document.querySelector(".btn")
+    var spanElem = document.querySelector(".span")
+    btnElem.onclick = function(){
+        var textElem = document.querySelector(".text")
+
+        // var value = textElem.value
+        var value = _.escape(textElem.value)
+
+        spanElem.innerHTML = value
+    }
+
+    //函数组合
+    //1、依次调用
+    //2、上一次的返回值传递给下一个要执行的函数
+    function fn1(data) {
+        return data + 'fun1'
+    }
+    function fn2(data) {
+        return data + 'fun2'
+    }
+    function fn3(data) {
+        return data + 'fun3'
+    }
+    var ret = _.compose(fn1, fn2, fn3)
+    console.log(ret(''))    //fun3fun2fun1
+
+    var ret = _.composePlus(fn1, fn2, fn3)
+    //等价于
+    var ret =function() {
+        return (function(){
+            return fn1(fn2.apply(undefined, arguments))
+        })(fn3.apply(undefined, arguments))
+    }
+
+    console.log(ret(''))    //fun3fun2fun1
+</script>
+<body>
+</body>
+</html>
