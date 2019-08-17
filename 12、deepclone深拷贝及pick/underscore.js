@@ -187,9 +187,13 @@
                     return func.call(context, value, index, obj)
                 }
             case 4:
-                return function (memo, value, index, obj){
-                    return func.call(context, memo, value, index, obj)
-                }
+                // return function (memo, value, index, obj){
+                //     return func.call(context, memo, value, index, obj)
+                // }
+
+                return function(memo, value, index, obj) { //回调函数 = 包装 >  迭代器
+					return func.call(context, memo, value, index, obj); //调用回调
+				};
         }
     }
 
@@ -235,14 +239,15 @@
     var createReduce = function(dir){
         //memo：初始值
         //init：是否有初始值
-        var reduce = function(obj, iteratee, memo, init){
+        var reduce = function(obj, iteratee, memo, init){          
             var keys = !_.isArray(obj) && Object.keys(obj),
-                length = (keys || obj).length
+                length = (keys || obj).length,
                 index = dir > 0 ? 0 : length - 1
             if(!init){
                 memo = obj[keys ? keys[index] : index]
                 index += dir    //  1||-1
             }
+
             for(; index >= 0 && index < length; index += dir){
                 var currentKey = keys ? keys[index] : index
                 memo = iteratee(memo, obj[currentKey], currentKey, obj)
@@ -664,20 +669,88 @@
     }
     _.extend = createAssigner(_.keys)
     _.extendOwn = createAssigner(_.Allkeys)
+    
     //自己写的深拷贝
     _.extendPlus = function(target, obj){
-        let copeTarget = {}
         if(_.isObject(obj)){
             for(let key in obj){
                 if(_.isObject(obj[key])){
-                    copeTarget[key] = {}
-                    _.extendPlus(copeTarget[key], obj[key])
+                    target[key] = {}
+                    _.extendPlus(target[key], obj[key])
+                } else if(_.isArray(obj[key])){
+                    target[key] = []
+                    _.extendPlus(target[key], obj[key])
                 } else {
-                    copeTarget[key] = obj[key]
+                    target[key] = obj[key]
+                }
+            }
+        } else if(_.isArray(obj)){
+            for(let i = 0; i < obj.length; i++){
+                if(_.isObject(obj[i])){
+                    target[i] = {}
+                    _.extendPlus(target[i], obj[i])
+                } else if(_.isArray(obj[i])){
+                    target[i] = []
+                    _.extendPlus(target[i], obj[i])
+                } else {
+                    target[i] = obj[i]
                 }
             }
         }
-        return copeTarget
+        return target
+    }
+    
+    //浅拷贝
+    //克隆一个对象或者数组
+    _.clone = function(obj) {
+        if(_.isObject(obj) || _.isArray(obj)){
+            return _.isArray(obj) ? obj.slice() : _.extend({}, obj)
+        }
+
+        return obj
+    }
+
+    //深拷贝
+    _.deepclone = function(obj){
+        if(_.isObject(obj)){
+            return _.reduce(obj, function(memo, value, key) {
+                memo[key] = _.isObject(value) || _.isArray(value) ? _.deepclone(value) : value
+                return memo
+            }, {})
+        } else if(_.isArray(obj)){
+            return _.map(obj, function(elem) {
+                return _.isObject(elem) || _.isArray(elem) ? _.deepclone(elem) : elem
+            })
+        } else {
+            return obj
+        }
+    }
+
+    _.pick = function(obj, oiteratee, context) {
+        var result = {},
+            iteratee,keys
+        if(!_.isObject(obj)){
+            return obj
+        }
+
+        if(_.isFunction(oiteratee)){
+            keys = _.keys(obj)
+            iteratee = optimizeCb(oiteratee, context)
+        } else {
+            keys = [].slice.call(arguments, 1)
+            iteratee = function(value, key, object) {
+                return key in obj
+            }
+        }
+        for (let index = 0; index < keys.length; index++) {
+            var key = keys[index]
+            var value = obj[key]
+            if(iteratee(value, key, obj)){
+                result[key] = value
+            }
+        }
+        
+        return result
     }
 
     _.mixin(_)

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./underscore.js"></script>
+<style>
+.content{
+    height: 3000px;
+    width: 100%;
+}
+</style>
+<body>
+    <div class="content">
+    </div>
+</body>
+<script>
+    //deepclone
+    //数组
+    var arr = [1, [1, 2,], 2]
+    var arrCopy = _.clone(arr)
+    console.log(arrCopy === arr)      //false
+    console.log(arrCopy[1] === arr[1])      //true
+
+    var arrCopy2 = _.extendPlus([], arr)
+    console.log(arrCopy2[1] === arr[1])      //false
+
+    var arrCopy3 = _.deepclone(arr)
+    console.log(arrCopy3[1] === arr[1])      //false
+
+
+    //对象
+    var ret = {
+        q: 4
+    }
+    var obj = {
+        a: 1,
+        b: 2,
+        c: ret,
+        list: [1, 2, 3, 4]
+    }
+
+    var objCopy = _.extend({}, obj)
+    //underscore    clone浅克隆
+    var objCopy2 = _.clone(obj)
+
+    var target = {
+        qwe: 'hhhhh'
+    }
+
+    var objCopy3 = _.extendPlus(target, obj)
+    console.log(objCopy3.list === obj.list, 111)
+
+    var objCopy4 = _.deepclone(obj)
+    console.log(objCopy4)
+    console.log(objCopy4.list === obj.list, 111)
+
+    console.log(objCopy.c === ret)      //true
+    console.log(objCopy2.c === ret)      //true
+    console.log(objCopy2.list === obj.list)      //true
+    console.log(objCopy3.c === ret)     //false
+
+
+
+
+    //_.pick()
+    var pickObj = _.pick({
+        name: 'ys',
+        age: 24,
+        userid: 'qwer'
+    }, function(value, key, object) {
+        return _.isNumber(value)
+    })
+
+    var pickObj2 = _.pick({
+        name: 'ys',
+        age: 24,
+        userid: 'qwer'
+    }, 'name', 'age', 'qq')
+
+    console.log(pickObj)    //{ name: 'ys' }
+    console.log(pickObj2)    //{ age: 24 }
+
+</script>
+<body>
+</body>
+</html>
