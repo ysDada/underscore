@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    
+<script>
+    var _ = {
+        owner: 'max'
+    };
+    debugger
+    console.log(_)
+    
+</script>
 </head>
+
 <script src="./underscore.js"></script>
 <style>
 .content{
@@ -18,8 +28,13 @@
     </div>
 </body>
 <script>
+        _.noConflict()
+    debugger
+    console.log(_.owner); // => undefined
 
-    
+    // var underscore = _.noConflict()
+    // console.log(underscore.isArray([1, 2]))
+
 </script>
 <body>
 </body>

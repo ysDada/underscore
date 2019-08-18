@@ -753,6 +753,15 @@
         return result
     }
 
+	var __ = root._;
+    _.noConflict = function() {
+        if ( root._ === _ ) {
+            root._ = __
+        }
+        
+        return _;
+    }
+
     _.mixin(_)
     root._ = _
 })(this)
