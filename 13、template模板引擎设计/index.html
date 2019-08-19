@@ -5,36 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    
-<script>
-    var _ = {
-        owner: 'max'
-    };
-    debugger
-    console.log(_)
-    
-</script>
 </head>
-
 <script src="./underscore.js"></script>
-<style>
-.content{
-    height: 3000px;
-    width: 100%;
-}
-</style>
+<script type="text/template" id="tpl">
+    <ul class="list">
+        <% obj.forEach(function(e, i, a){ %>
+            <% if( i === a.length-1){ %>
+                <li class="last-item"><%=e.name%></li>
+            <% } else {%>
+                <li><%=e.name%></li>
+        <%}})%>
+    </ul>
+</script>
 <body>
-    <div class="content">
-    </div>
+    <div class="content"></div>
 </body>
 <script>
-        _.noConflict()
-    debugger
-    console.log(_.owner); // => undefined
+    //数据
+    var data = [{
+        name: "ys"
+    }, {
+        name: "YS"
+    }]
 
-    // var underscore = _.noConflict()
-    // console.log(underscore.isArray([1, 2]))
-
+    var templateString = document.getElementById('tpl').innerHTML
+    var compiled = _.template(templateString)
+    var renderString = compiled(data)
+    document.querySelector("div").innerHTML = renderString
 </script>
 <body>
 </body>

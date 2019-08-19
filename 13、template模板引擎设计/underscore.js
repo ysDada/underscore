@@ -762,6 +762,48 @@
         return _;
     }
 
+    //解析模板
+    _.template = function(templateString, settings){
+        var RULES = {
+            interpolate: /<%=([\s\S]+?)%>/,
+            escape: /<%-([\s\S]+?)%>/,
+            expression: /<%([\s\S]+?)%>/,
+        }
+
+        settings = _.extend({}, RULES, settings)
+
+        var matcher = new RegExp([
+            settings.interpolate.source,
+            settings.escape.source,
+            settings.expression.source
+        ].join("|"), "g")
+
+        var source = "var _p='',_t; with(obj){",index = 0
+
+        templateString.replace(matcher, function(match, interpolate, escape, expression, offset){
+            var domStr = templateString.substring(index, offset)
+            index = offset + match.length
+            domStr = domStr.replace(/\n/g, '\\n')
+            source += "\n _p +='" + domStr + "'"
+            if(interpolate){
+                source += `\n _p += (!!(_t = ${interpolate})?_t:'')`
+            } else if(escape){
+
+            } else if(expression){
+                source += "\n" + expression
+            }
+        })
+
+        source += "} return _p";
+        var render = new Function("obj", source)
+
+        var template = function(data) {
+            return render.call(this, data)
+        }
+
+        return template
+    }
+
     _.mixin(_)
     root._ = _
 })(this)
